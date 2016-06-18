@@ -6,18 +6,15 @@ import java.util.List;
  * Created by zhai on 16/6/18.
  */
 
-public class MainView {
+public interface MainView {
 
-    public void initRecylerView() {
-    }
+    void initRecylerView();
 
-    public void setContentView() {
-    }
+    void setContentView();
 
-    public void updateRecylerView(List<String> noteList) {
-    }
+    void updateRecylerView(List<String> noteList);
 
-    public void clearNoteText() {
+    void clearNoteText();
 
-    }
+    void initButton();
 }

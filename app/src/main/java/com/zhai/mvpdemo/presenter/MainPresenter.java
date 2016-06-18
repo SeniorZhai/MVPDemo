@@ -19,7 +19,7 @@ public class MainPresenter {
     public void onCreate() {
         view.setContentView();
         view.initRecylerView();
-
+        view.initButton();
     }
 
     public void onSavaButtonClick(String note) {

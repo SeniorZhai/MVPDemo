@@ -9,14 +9,21 @@ import java.util.List;
 
 public class MainModel {
 
-    public void addNoteList(String note) {
+    private List<String> mList;
 
+    public MainModel() {
+        mList = new ArrayList<>();
+    }
+
+    public void addNoteList(String note) {
+        mList.add(note);
     }
 
     public List<String> getNoteList() {
-        return null;
+        return mList;
     }
 
     public void removeNoteFromList(int position) {
+        mList.remove(position);
     }
 }
