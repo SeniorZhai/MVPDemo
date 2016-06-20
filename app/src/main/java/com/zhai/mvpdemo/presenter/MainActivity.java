@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.zhai.mvpdemo.DaggerHelloComponent;
+import com.zhai.mvpdemo.Hello;
 import com.zhai.mvpdemo.R;
 import com.zhai.mvpdemo.model.MainModel;
 import com.zhai.mvpdemo.view.MainView;
@@ -15,9 +18,13 @@ import com.zhai.mvpdemo.view.adapter.NoteAdapter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
+    @Inject
+    Hello hello;
     private MainPresenter mPresenter;
     private MainModel mModel;
     private RecyclerView mRecyclerView;
@@ -30,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mModel = new MainModel();
         mPresenter = new MainPresenter(this, mModel);
         mPresenter.onCreate();
+        DaggerHelloComponent.create().inject(this);
+        Log.d("---", hello.getString());
     }
 
     @Override
