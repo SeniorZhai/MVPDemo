@@ -4,13 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.zhai.mvpdemo.MyApplication;
 import com.zhai.mvpdemo.R;
 import com.zhai.mvpdemo.model.MainModel;
+import com.zhai.mvpdemo.view.DaggerMainActivityComponent;
+import com.zhai.mvpdemo.view.MainActivityModule;
 import com.zhai.mvpdemo.view.MainView;
 import com.zhai.mvpdemo.view.adapter.NoteAdapter;
 
@@ -21,17 +23,24 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    private MainPresenter mPresenter;
     private MainModel mModel;
     private RecyclerView mRecyclerView;
     private EditText mEdit;
     private Button mAdd;
 
+    @Inject
+    MainPresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mModel = new MainModel();
-        mPresenter = new MainPresenter(this, mModel);
+        DaggerMainActivityComponent
+                .builder()
+                .appComponent(((MyApplication) getApplication()).getAppComponent())
+                .mainActivityModule(new MainActivityModule(this,mModel))
+                .build()
+                .inject(this);
         mPresenter.onCreate();
     }
 
