@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zhai.mvpdemo.R;
+import com.zhai.mvpdemo.view.MainActivity;
 
 import org.hamcrest.Matcher;
 import org.junit.Assert;

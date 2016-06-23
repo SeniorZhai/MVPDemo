@@ -1,4 +1,4 @@
-package com.zhai.mvpdemo.presenter;
+package com.zhai.mvpdemo.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +11,9 @@ import android.widget.EditText;
 import com.zhai.mvpdemo.MyApplication;
 import com.zhai.mvpdemo.R;
 import com.zhai.mvpdemo.model.MainModel;
-import com.zhai.mvpdemo.view.DaggerMainActivityComponent;
-import com.zhai.mvpdemo.view.MainActivityModule;
-import com.zhai.mvpdemo.view.MainView;
+import com.zhai.mvpdemo.presenter.DaggerMainComponent;
+import com.zhai.mvpdemo.presenter.MainModule;
+import com.zhai.mvpdemo.presenter.MainPresenter;
 import com.zhai.mvpdemo.view.adapter.NoteAdapter;
 
 import java.util.List;
@@ -23,7 +23,6 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    private MainModel mModel;
     private RecyclerView mRecyclerView;
     private EditText mEdit;
     private Button mAdd;
@@ -31,14 +30,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Inject
     MainPresenter mPresenter;
 
+    @Inject
+    MainModel mModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mModel = new MainModel();
-        DaggerMainActivityComponent
+        DaggerMainComponent
                 .builder()
                 .appComponent(((MyApplication) getApplication()).getAppComponent())
-                .mainActivityModule(new MainActivityModule(this,mModel))
+                .mainModule(new MainModule(this))
                 .build()
                 .inject(this);
         mPresenter.onCreate();
