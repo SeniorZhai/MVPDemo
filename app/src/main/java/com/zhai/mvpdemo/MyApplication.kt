@@ -7,7 +7,7 @@ import android.content.Context
  * Created by zhai on 16/6/20.
  */
 class MyApplication : Application() {
-
+    // 延迟初始化
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {
